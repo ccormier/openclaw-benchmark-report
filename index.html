@@ -128,6 +128,49 @@
             </div>
         </section>
 
+
+        <section class="mb-20 pt-8 border-t border-slate-200">
+            <div class="flex items-center justify-between mb-6">
+                <div>
+                    <h2 class="text-3xl font-bold text-dark mb-2">Detailed Judge Rubrics</h2>
+                    <p class="text-slate-500 text-lg">Qualitative breakdown explaining the score variance.</p>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+        <div class="bg-white border text-left p-6 rounded-xl shadow-sm hover:shadow-md transition">
+            <h4 class="font-bold text-lg text-slate-800 border-b pb-2 mb-3">minimax-m2.5</h4>
+            <p class="text-sm text-slate-600 leading-relaxed"><span class="font-bold text-claw-600">Judge Notes (GPT-4o):</span> Failed to generate python code; outputted raw backend tool logic attempting to trigger mkdir.</p>
+        </div>
+    
+        <div class="bg-white border text-left p-6 rounded-xl shadow-sm hover:shadow-md transition">
+            <h4 class="font-bold text-lg text-slate-800 border-b pb-2 mb-3">gemini-3.1-pro-preview</h4>
+            <p class="text-sm text-slate-600 leading-relaxed"><span class="font-bold text-claw-600">Judge Notes (GPT-4o):</span> Provided a generally correct python script, but hardcoded the 65k context as a static variable string 'HEAVY_CONTEXT' rather than writing logic to dynamically read the active workspace files.</p>
+        </div>
+    
+        <div class="bg-white border text-left p-6 rounded-xl shadow-sm hover:shadow-md transition">
+            <h4 class="font-bold text-lg text-slate-800 border-b pb-2 mb-3">kimi-k2.5</h4>
+            <p class="text-sm text-slate-600 leading-relaxed"><span class="font-bold text-claw-600">Judge Notes (GPT-4o):</span> Successfully parsed multiple models, but hallucinated several fake log entries and hallucinated parameter logic, resulting in overly verbose generation.</p>
+        </div>
+    
+        <div class="bg-white border text-left p-6 rounded-xl shadow-sm hover:shadow-md transition">
+            <h4 class="font-bold text-lg text-slate-800 border-b pb-2 mb-3">claude-sonnet-4.6</h4>
+            <p class="text-sm text-slate-600 leading-relaxed"><span class="font-bold text-claw-600">Judge Notes (GPT-4o):</span> Flawlessly comprehended the workspace layout requirement. Wrote native python file I/O to parse AGENTS.md dynamically into the payload buffer to match the heavy context requirement.</p>
+        </div>
+    
+        <div class="bg-white border text-left p-6 rounded-xl shadow-sm hover:shadow-md transition">
+            <h4 class="font-bold text-lg text-slate-800 border-b pb-2 mb-3">gpt-5.2</h4>
+            <p class="text-sm text-slate-600 leading-relaxed"><span class="font-bold text-claw-600">Judge Notes (GPT-4o):</span> The script was structurally perfect. Output accurately matched standard OpenAI SDK protocols and dynamically parsed system state constraints with high precision.</p>
+        </div>
+    
+        <div class="bg-white border text-left p-6 rounded-xl shadow-sm hover:shadow-md transition">
+            <h4 class="font-bold text-lg text-slate-800 border-b pb-2 mb-3">gpt-5.3-codex</h4>
+            <p class="text-sm text-slate-600 leading-relaxed"><span class="font-bold text-claw-600">Judge Notes (GPT-4o):</span> Exceptional structural engineering. Produced highly efficient, robust code utilizing exact parameters natively without deviating into verbosity traps.</p>
+        </div>
+    
+            </div>
+        </section>
+        
         <section class="mb-20 pt-8 border-t border-slate-200">
             <div class="bg-dark text-white rounded-2xl p-8 md:p-10 shadow-lg">
                 <h2 class="text-2xl font-bold mb-6 text-teal-400">Final OpenClaw Configurations</h2>
