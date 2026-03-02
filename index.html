@@ -23,19 +23,16 @@
         body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #334155; }
         .graph-container { transition: transform 0.2s ease-in-out; cursor: pointer; }
         .graph-container:hover { transform: translateY(-4px); box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1); }
-        /* Lightbox CSS */
         #lightbox { display: none; position: fixed; z-index: 999; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); align-items: center; justify-content: center; padding: 2rem; cursor: zoom-out; }
         #lightbox img { max-width: 95%; max-height: 95vh; object-fit: contain; border-radius: 0.5rem; box-shadow: 0 25px 50px -12px rgb(0 0 0 / 0.25); }
     </style>
 </head>
 <body class="antialiased selection:bg-claw-500 selection:text-white pb-20">
 
-    <!-- Lightbox -->
     <div id="lightbox" onclick="this.style.display='none'">
         <img id="lightbox-img" src="" alt="Expanded Graph">
     </div>
 
-    <!-- Header -->
     <header class="bg-dark text-white pt-24 pb-16 px-6 relative overflow-hidden">
         <div class="absolute inset-0 opacity-10 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAzNHYtNGwtMiAydi00aC00djJsLTItMnY0aC00djJsLTItMnY0aC00djJsLTItMnY0SDEydi00aDR2LTJsMiAydi00aDR2LTJsMiAydi00aDR2LTJsMiAydjRIMzZ6IiBmaWxsPSIjZmZmIiBmaWxsLW9wYWNpdHk9IjAuMSIvPjwvZz48L3N2Zz4=')]"></div>
         <div class="max-w-5xl mx-auto relative z-10">
@@ -53,33 +50,29 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="max-w-5xl mx-auto px-6 -mt-8 relative z-20">
         
-        <!-- Intro Card -->
         <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-8 mb-12">
             <h2 class="text-2xl font-bold text-dark mb-4">The Context Window Problem</h2>
             <p class="text-slate-600 mb-4 leading-relaxed">
                 As users build out their <strong>OpenClaw</strong> agents, the baseline context window grows rapidly. Between loading <code class="bg-slate-100 text-slate-800 px-1 rounded text-sm py-0.5">AGENTS.md</code>, <code class="bg-slate-100 text-slate-800 px-1 rounded text-sm py-0.5">SOUL.md</code>, massive JSON schemas for active Skills, and keeping a buffer of recent chat history, a standard background agent query often pushes <strong>50,000 to 75,000 tokens</strong> per request.
             </p>
             <p class="text-slate-600 leading-relaxed">
-                Firing 65k tokens into a frontier model for every minor automated step is an incredibly fast way to bankrupt your API budget. We utilized <a href="https://ppq.ai" target="_blank" class="text-claw-600 font-medium hover:underline">PPQ.ai</a>—an aggregator API allowing hot-swapping between top inference providers—to benchmark four leading models across multiple "Thinking" (reasoning) levels. Our goal: <strong>Find the most economical way to run high-quality OpenClaw sessions.</strong>
+                Firing 65k tokens into a frontier model for every minor automated step is an incredibly fast way to bankrupt your API budget. We utilized <a href="https://ppq.ai" target="_blank" class="text-claw-600 font-medium hover:underline">PPQ.ai</a>—an aggregator API allowing hot-swapping between top inference providers—to benchmark five leading models across multiple "Thinking" (reasoning) levels. Our goal: <strong>Find the most economical way to run high-quality OpenClaw sessions.</strong>
             </p>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 mb-16">
-            <!-- Methodology -->
             <div>
                 <h3 class="text-xl font-bold text-dark border-b-2 border-slate-200 pb-2 mb-4">Methodology</h3>
                 <ul class="space-y-3 text-slate-600">
                     <li class="flex items-start"><span class="text-claw-500 mr-2">✓</span> <strong>The Payload:</strong> ~64,500 token mock OpenClaw environment (inclusive of 19 full Skill manuals & 20-message chat buffer).</li>
                     <li class="flex items-start"><span class="text-claw-500 mr-2">✓</span> <strong>The Task:</strong> Write a complex Python script requiring heavy adherence to the injected workspace documentation.</li>
-                    <li class="flex items-start"><span class="text-claw-500 mr-2">✓</span> <strong>The Models:</strong> Claude Sonnet 4.6, Gemini 3.1 Pro, Kimi k2.5, Gemini 3 Flash.</li>
-                    <li class="flex items-start"><span class="text-claw-500 mr-2">✓</span> <strong>KV Caching:</strong> All initial prompts were pre-loaded to isolate generation metrics.</li>
+                    <li class="flex items-start"><span class="text-claw-500 mr-2">✓</span> <strong>The Models:</strong> Claude Sonnet 4.6, Gemini 3.1 Pro, MiniMax m2.5, Kimi k2.5, Gemini 3 Flash.</li>
+                    <li class="flex items-start"><span class="text-claw-500 mr-2">✓</span> <strong>KV Caching:</strong> All initial prompts were pre-loaded to isolate generation costs vs caching costs.</li>
                 </ul>
             </div>
             
-            <!-- Missing Data Note -->
             <div class="bg-amber-50 border border-amber-200 rounded-xl p-5">
                 <div class="flex items-center gap-2 mb-2 text-amber-800 font-bold">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
@@ -91,7 +84,6 @@
             </div>
         </div>
 
-        <!-- Section 1: Cost Matrix -->
         <section class="mb-20 pt-8 border-t border-slate-200">
             <div class="flex items-center justify-between mb-6">
                 <div>
@@ -108,29 +100,14 @@
                 <h4 class="font-bold text-slate-800 mb-2">Cost Takeaways:</h4>
                 <ul class="list-disc pl-5 space-y-2 text-slate-600">
                     <li><strong>Gemini Flash is basically free:</strong> Generating tokens from a 70k context block costs functionally fractions of a penny.</li>
-                    <li><strong>Sonnet is a premium luxury:</strong> Sonnet 4.6 charges nearly <strong>$0.30</strong> just for the initial Context Caching hit, and continues to charge $0.10 - $0.15 per extended query. For heavy background automation routines in OpenClaw, Sonnet will burn through credits rapidly.</li>
+                    <li><strong>Sonnet & Pro are a premium luxury:</strong> Sonnet 4.6 charges nearly <strong>$0.30</strong> just for the initial Context Caching hit. Both Sonnet and Gemini Pro aggressively charge upwards of $0.12 - $0.15 per extended query. For heavy background automation routines, these will burn through credits rapidly.</li>
                     <li><strong>The Middle Tier:</strong> MiniMax and Kimi scale their costs linearly with how "hard" you ask them to think.</li>
                 </ul>
             </div>
         </section>
 
-        <!-- Section 2: Generation Speed -->
         <section class="mb-20 pt-8 border-t border-slate-200">
-            <h2 class="text-3xl font-bold text-dark mb-2">2. Generation Speed & Wall-Clock Latency</h2>
-            <p class="text-slate-500 text-lg mb-8">How long are you waiting for your agent to type?</p>
-
-            <figure class="mb-8 bg-white p-2 rounded-xl shadow-sm border border-slate-200 graph-container" onclick="openLightbox(this.querySelector('img').src)">
-                <img src="assets/walltime_comparison.png" alt="Wall-Clock execution time" class="w-full rounded-lg">
-            </figure>
-
-            <p class="text-slate-600 leading-relaxed mb-6">
-                Wall-time is heavily influenced by the model's <em>verbosity</em>. When Kimi-k2.5 was set to "medium", it generated over 4,000 tokens of explanation, artificially boosting its execution time to 36+ seconds. To get an apples-to-apples metric, we calculate raw <strong>Tokens per Second</strong> (below).
-            </p>
-        </section>
-
-        <!-- Section 3: The Ultimate Quality Battle -->
-        <section class="mb-20 pt-8 border-t border-slate-200">
-            <h2 class="text-3xl font-bold text-dark mb-2">3. Instruction Following & Quality</h2>
+            <h2 class="text-3xl font-bold text-dark mb-2">2. Instruction Following & Quality</h2>
             <p class="text-slate-500 text-lg mb-8">Evaluated entirely blindly by an automated LLM-as-a-Judge script using a 1-10 rubric covering context-awareness, coding accuracy, and anti-hallucination.</p>
 
             <figure class="mb-8 bg-white p-2 rounded-xl shadow-sm border border-slate-200 graph-container" onclick="openLightbox(this.querySelector('img').src)">
@@ -138,7 +115,7 @@
             </figure>
 
             <p class="text-slate-600 leading-relaxed mb-12">
-                <strong>The Verdict:</strong> Sonnet 4.6 dominates the intelligence tier, scoring a 9.33 out of 10. It perfectly synthesized the 60,000 token workspace mess into a clean Python script utilizing native file I/O. Contrast this to Flash, which hallucinated a javascript Node.JS script on its lowest setting, failing the task entirely.
+                <strong>The Verdict:</strong> Sonnet 4.6 dominates the intelligence tier, scoring a 9.33 out of 10. Gemini 3.1 Pro serves as an excellent runner-up hovering firmly in the high 8's. Contrast this to Flash, which hallucinated a javascript Node.JS script on its lowest setting, failing the task entirely.
             </p>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-8">
@@ -151,29 +128,41 @@
             </div>
         </section>
 
-        <!-- Conclusion -->
         <section class="mb-20 pt-8 border-t border-slate-200">
             <div class="bg-dark text-white rounded-2xl p-8 md:p-10 shadow-lg">
                 <h2 class="text-2xl font-bold mb-6 text-teal-400">Final OpenClaw Configurations</h2>
-                <div class="space-y-6">
-                    <div>
-                        <h3 class="text-xl font-semibold mb-2">🏆 The Daily Driver: <span class="text-white font-mono bg-white/10 px-2 py-1 rounded text-sm">google/gemini-3.1-pro-preview</span></h3>
-                        <p class="text-slate-300">
-                            At a reliable ~8.5/10 quality score, Gemini Pro is currently the undeniable sweet spot for average users. Set its thinking to <strong>medium</strong>. It handles massive OpenClaw schemas beautifully, executes much faster than Sonnet, and avoids the hallucination traps that Flash and MiniMax fell into.
+                <div class="space-y-8">
+                    
+                    <div class="bg-white/5 border border-white/10 rounded-xl p-5 relative">
+                        <div class="absolute top-5 right-5 flex gap-2">
+                            <span class="bg-blue-500/20 text-blue-300 border border-blue-500/30 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider">Think: Medium</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 flex items-center gap-2">🏆 The Daily Driver: <span class="bg-black/30 px-2 py-1 rounded font-mono text-sm tracking-tight text-slate-200">google/gemini-3.1-pro-preview</span></h3>
+                        <p class="text-slate-300 leading-relaxed">
+                            At a reliable ~8.5/10 quality score, Gemini Pro is currently the undeniable sweet spot for average users interacting with their agents daily. Setting its thinking parameter to <strong>medium</strong> prevents the zero-token failure state while keeping costs and latency reigned in. It handles massive OpenClaw schemas beautifully and avoids the hallucination traps that Flash and MiniMax fell into.
                         </p>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-2">💸 The Architect: <span class="text-white font-mono bg-white/10 px-2 py-1 rounded text-sm">claude-sonnet-4.6</span></h3>
-                        <p class="text-slate-300">
-                            If you are doing highly destructive operations (managing your real server files via OpenClaw) or complex sub-agent software engineering, use Sonnet. The cost is high (~$0.15/msg), but it is the only model that guarantees pristine situational awareness inside a heavy workspace.
+
+                    <div class="bg-white/5 border border-white/10 rounded-xl p-5 relative">
+                        <div class="absolute top-5 right-5 flex gap-2">
+                            <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider">Think: Low</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 flex items-center gap-2">🛠️ The Architect: <span class="bg-black/30 px-2 py-1 rounded font-mono text-sm tracking-tight text-slate-200">claude-sonnet-4.6</span></h3>
+                        <p class="text-slate-300 leading-relaxed">
+                            If you are doing highly destructive operations (managing your real server files via OpenClaw) or complex sub-agent software engineering, use Sonnet. The cost is high (~$0.15/msg), but it is the only model that guarantees pristine situational awareness inside a heavy workspace. We recommend leaving thinking on <strong>low</strong> or <strong>medium</strong>; turning it to 'high' caused it to hit hard token limits and become extremely expensive without necessarily boosting the quality output.
                         </p>
                     </div>
-                    <div>
-                        <h3 class="text-xl font-semibold mb-2">🏎️ Background Cron Jobs: <span class="text-white font-mono bg-white/10 px-2 py-1 rounded text-sm">gemini-3-flash-preview</span></h3>
-                        <p class="text-slate-300">
-                            Keep Flash locked to background monitoring tools via <code class="bg-black/30 px-1 rounded">cron</code>. It struggles with dense code-writing logic, but it's perfect (and practically free) for reading 65k tokens of logs to check for a simple "yes/no" trigger state.
+                    
+                    <div class="bg-white/5 border border-white/10 rounded-xl p-5 relative">
+                        <div class="absolute top-5 right-5 flex gap-2">
+                            <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-3 py-1 rounded text-xs font-bold uppercase tracking-wider">Think: Off</span>
+                        </div>
+                        <h3 class="text-xl font-semibold mb-3 flex items-center gap-2">🏎️ Background Cron Jobs: <span class="bg-black/30 px-2 py-1 rounded font-mono text-sm tracking-tight text-slate-200">gemini-3-flash-preview</span></h3>
+                        <p class="text-slate-300 leading-relaxed">
+                            Keep Flash locked to background monitoring tools via <code class="bg-black/30 px-1 rounded text-sm">cron</code>. It struggles with dense code-writing logic, but it's perfect (and practically free) for tasks that wake up, scan 65k tokens of unformatted logs, and check for a simple "yes/no" trigger state. By turning thinking to <strong>off</strong>, you maximize raw throughput speed (130+ tokens/sec) and minimize cost fractions.
                         </p>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -188,17 +177,16 @@
         function openLightbox(src) {
             document.getElementById('lightbox-img').src = src;
             document.getElementById('lightbox').style.display = 'flex';
-            document.body.style.overflow = 'hidden'; // prevent background scrolling
+            document.body.style.overflow = 'hidden'; 
         }
         
         document.getElementById('lightbox').addEventListener('click', function(e) {
             if (e.target !== document.getElementById('lightbox-img')) {
                 this.style.display = 'none';
-                document.body.style.overflow = 'auto'; // restore scrolling
+                document.body.style.overflow = 'auto'; 
             }
         });
 
-        // Let Esc key close lightbox
         document.addEventListener('keydown', function(event) {
             if(event.key === "Escape") {
                 document.getElementById('lightbox').style.display = 'none';
